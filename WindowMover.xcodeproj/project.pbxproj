@@ -10,6 +10,12 @@
 		09108AD02017AB53001026FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108ACF2017AB53001026FD /* AppDelegate.swift */; };
 		09108AD22017AB53001026FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09108AD12017AB53001026FD /* Assets.xcassets */; };
 		09108AD52017AB53001026FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09108AD32017AB53001026FD /* MainMenu.xib */; };
+		09108ADE2017AE66001026FD /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108ADD2017AE66001026FD /* StatusMenuController.swift */; };
+		09108AE12017B156001026FD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108ADF2017B156001026FD /* Preferences.swift */; };
+		09108AE22017B156001026FD /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09108AE02017B156001026FD /* Preferences.xib */; };
+		094E4F3B2017B7580090D38D /* set_window_size.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 094E4F3A2017B7380090D38D /* set_window_size.scpt */; };
+		098B3E5420186BA800BD0C24 /* MaxLengthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B3E5320186BA800BD0C24 /* MaxLengthTextField.swift */; };
+		40369670EA6F04534AAF7DFD /* Pods_WindowMover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5E3DD8CB22D56E2D66D149 /* Pods_WindowMover.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,14 @@
 		09108AD42017AB53001026FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		09108AD62017AB53001026FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09108AD72017AB53001026FD /* WindowMover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WindowMover.entitlements; sourceTree = "<group>"; };
+		09108ADD2017AE66001026FD /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		09108ADF2017B156001026FD /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		09108AE02017B156001026FD /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		094E4F3A2017B7380090D38D /* set_window_size.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = set_window_size.scpt; sourceTree = "<group>"; };
+		098B3E5320186BA800BD0C24 /* MaxLengthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxLengthTextField.swift; sourceTree = "<group>"; };
+		72231CA83FE399B4A5DB0EF1 /* Pods-WindowMover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindowMover.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover.debug.xcconfig"; sourceTree = "<group>"; };
+		A63C0A2C5717CC2C3C38C0B6 /* Pods-WindowMover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindowMover.release.xcconfig"; path = "Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover.release.xcconfig"; sourceTree = "<group>"; };
+		EB5E3DD8CB22D56E2D66D149 /* Pods_WindowMover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WindowMover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40369670EA6F04534AAF7DFD /* Pods_WindowMover.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +52,8 @@
 			children = (
 				09108ACE2017AB53001026FD /* WindowMover */,
 				09108ACD2017AB53001026FD /* Products */,
+				97C537719597132BFA2A1811 /* Pods */,
+				6951C5A5F256AEB88FDF4E56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,13 +68,35 @@
 		09108ACE2017AB53001026FD /* WindowMover */ = {
 			isa = PBXGroup;
 			children = (
+				094E4F3A2017B7380090D38D /* set_window_size.scpt */,
 				09108ACF2017AB53001026FD /* AppDelegate.swift */,
 				09108AD12017AB53001026FD /* Assets.xcassets */,
 				09108AD32017AB53001026FD /* MainMenu.xib */,
 				09108AD62017AB53001026FD /* Info.plist */,
 				09108AD72017AB53001026FD /* WindowMover.entitlements */,
+				09108ADD2017AE66001026FD /* StatusMenuController.swift */,
+				09108ADF2017B156001026FD /* Preferences.swift */,
+				09108AE02017B156001026FD /* Preferences.xib */,
+				098B3E5320186BA800BD0C24 /* MaxLengthTextField.swift */,
 			);
 			path = WindowMover;
+			sourceTree = "<group>";
+		};
+		6951C5A5F256AEB88FDF4E56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB5E3DD8CB22D56E2D66D149 /* Pods_WindowMover.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97C537719597132BFA2A1811 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				72231CA83FE399B4A5DB0EF1 /* Pods-WindowMover.debug.xcconfig */,
+				A63C0A2C5717CC2C3C38C0B6 /* Pods-WindowMover.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -67,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09108ADA2017AB53001026FD /* Build configuration list for PBXNativeTarget "WindowMover" */;
 			buildPhases = (
+				61400E7587A331EA3F31CBE6 /* [CP] Check Pods Manifest.lock */,
 				09108AC82017AB53001026FD /* Sources */,
 				09108AC92017AB53001026FD /* Frameworks */,
 				09108ACA2017AB53001026FD /* Resources */,
+				53C183EB55BDB3344F6CCDF0 /* [CP] Embed Pods Frameworks */,
+				E19FBF19954F2C39B089288A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -119,19 +161,78 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094E4F3B2017B7580090D38D /* set_window_size.scpt in Resources */,
 				09108AD22017AB53001026FD /* Assets.xcassets in Resources */,
+				09108AE22017B156001026FD /* Preferences.xib in Resources */,
 				09108AD52017AB53001026FD /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		53C183EB55BDB3344F6CCDF0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/HotKey/HotKey.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HotKey.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61400E7587A331EA3F31CBE6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WindowMover-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E19FBF19954F2C39B089288A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		09108AC82017AB53001026FD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				098B3E5420186BA800BD0C24 /* MaxLengthTextField.swift in Sources */,
+				09108ADE2017AE66001026FD /* StatusMenuController.swift in Sources */,
 				09108AD02017AB53001026FD /* AppDelegate.swift in Sources */,
+				09108AE12017B156001026FD /* Preferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +358,7 @@
 		};
 		09108ADB2017AB53001026FD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72231CA83FE399B4A5DB0EF1 /* Pods-WindowMover.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WindowMover/WindowMover.entitlements;
@@ -265,6 +367,7 @@
 				DEVELOPMENT_TEAM = SR3K9JLBXX;
 				INFOPLIST_FILE = WindowMover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = at.greywind.WindowMover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -273,6 +376,7 @@
 		};
 		09108ADC2017AB53001026FD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A63C0A2C5717CC2C3C38C0B6 /* Pods-WindowMover.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WindowMover/WindowMover.entitlements;
@@ -281,6 +385,7 @@
 				DEVELOPMENT_TEAM = SR3K9JLBXX;
 				INFOPLIST_FILE = WindowMover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = at.greywind.WindowMover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
