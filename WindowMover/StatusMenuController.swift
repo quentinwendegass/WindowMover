@@ -24,105 +24,33 @@ class StatusMenuController: NSObject, NSTextFieldDelegate{
         
         preferencesWindow = Preferences()
         
-        leftHalf = HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.command, .option, .shift]))
-        leftQuarter = HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.option, .shift]))
-        leftGibbous = HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.control, .shift]))
-        rightHalf = HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.command, .option, .shift]))
-        rightQuarter = HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.option, .shift]))
-        rightGibbous = HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.control, .shift]))
-        full = HotKey(keyCombo: KeyCombo(key: .f, modifiers: [.command, .option, .shift]))
+        let leftHalf = WindowSetting(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+        leftHalf.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.command, .option, .shift])))
+        
+        let leftQuarter = WindowSetting(width: (Int)(NSScreen.main!.frame.width / 4), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+        leftQuarter.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.option, .shift])))
+
+        let leftGibbous = WindowSetting(width: (Int)(NSScreen.main!.frame.width * 3/4), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+        leftGibbous.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.control, .shift])))
+        
+        let rightHalf = WindowSetting(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 2), y: 0)
+        rightHalf.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.command, .option, .shift])))
+        
+        let rightQuarter = WindowSetting(width: (Int)(NSScreen.main!.frame.width / 4), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width * 3/4), y: 0)
+        rightQuarter.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.option, .shift])))
+        
+        let rightGibbous = WindowSetting(width: (Int)(NSScreen.main!.frame.width * 3/4), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 4), y: 0)
+        rightGibbous.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.control, .shift])))
+        
+        let full = WindowSetting(width: (Int)(NSScreen.main!.frame.width), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+        full.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .f, modifiers: [.command, .option, .shift])))
     }
     
     @IBAction func preferencesClicked(_ sender: NSMenuItem) {
         preferencesWindow.showWindow(nil)
     }
+    
     @IBAction func quitClicked(sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
     }
-    
-    private var leftHalf: HotKey? {
-        didSet {
-            guard let leftHalf = leftHalf else {
-                return
-            }
-            leftHalf.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height))
-            }
-        }
-    }
-    
-    private var leftQuarter: HotKey? {
-        didSet {
-            guard let leftQuarter = leftQuarter else {
-                return
-            }
-            leftQuarter.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width / 4), height: (Int)(NSScreen.main!.frame.height))
-            }
-        }
-    }
-    
-    private var leftGibbous: HotKey? {
-        didSet {
-            guard let leftGibbous = leftGibbous else {
-                return
-            }
-            leftGibbous.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width * 3/4), height: (Int)(NSScreen.main!.frame.height))
-            }
-        }
-    }
-    
-    private var rightHalf: HotKey? {
-        didSet {
-            guard let rightHalf = rightHalf else {
-                return
-            }
-            rightHalf.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 2))
-            }
-        }
-    }
-    
-    private var rightQuarter: HotKey? {
-        didSet {
-            guard let rightQuarter = rightQuarter else {
-                return
-            }
-            rightQuarter.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width / 4), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width * 3/4))
-            }
-        }
-    }
-    
-    private var rightGibbous: HotKey? {
-        didSet {
-            guard let rightGibbous = rightGibbous else {
-                return
-            }
-            rightGibbous.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width * 3/4), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 4))
-            }
-        }
-    }
-    
-    private var full: HotKey? {
-        didSet {
-            guard let full = full else {
-                return
-            }
-            full.keyDownHandler = {
-                self.runScript(width: (Int)(NSScreen.main!.frame.width), height: (Int)(NSScreen.main!.frame.height))
-            }
-        }
-    }
-    
-    func runScript(width: Int, height: Int, x:Int = 0, y:Int = 0){
-        let task = Process()
-        task.launchPath = "/usr/bin/osascript"
-        task.arguments = ["\(String(describing: Bundle.main.path(forResource: "set_window_size", ofType: "scpt")!))",
-            "\(width)", "\(height)", "\(x)", "\(y)"]
-        task.launch()
-    }
-    
 }
