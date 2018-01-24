@@ -12,16 +12,7 @@ import Foundation
 
 class StatusMenuController: NSObject, NSTextFieldDelegate{
     @IBOutlet weak var statusMenu: NSMenu!
-    
-    @IBOutlet weak var textField: NSTextField!
-    
-    override func controlTextDidChange(_ obj: Notification) {
-        print("Hallo")
-        if self.textField.stringValue.characters.count > 1 {
-            self.textField.stringValue = String(self.textField.stringValue.characters.last!)
-        }
-    }
-    
+
     var preferencesWindow: Preferences!
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
