@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="WindowMover" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="CVv-tt-KlE" userLabel="StatusMenuController" customClass="StatusMenuController" customModule="WindowMover" customModuleProvider="target">
@@ -27,7 +27,7 @@
                         <action selector="preferencesClicked:" target="CVv-tt-KlE" id="7OX-F6-kIb"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="RE4-5y-6f2"/>
+                <menuItem isSeparatorItem="YES" id="P4u-pV-WUy"/>
                 <menuItem title="Quit" id="1cZ-bB-Rro">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

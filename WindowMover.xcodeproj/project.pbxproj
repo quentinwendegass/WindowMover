@@ -10,10 +10,15 @@
 		09108AD02017AB53001026FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108ACF2017AB53001026FD /* AppDelegate.swift */; };
 		09108AD22017AB53001026FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09108AD12017AB53001026FD /* Assets.xcassets */; };
 		09108AD52017AB53001026FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09108AD32017AB53001026FD /* MainMenu.xib */; };
-		09108ADE2017AE66001026FD /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108ADD2017AE66001026FD /* StatusMenuController.swift */; };
-		09108AE12017B156001026FD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108ADF2017B156001026FD /* Preferences.swift */; };
-		09108AE22017B156001026FD /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09108AE02017B156001026FD /* Preferences.xib */; };
-		094E4F3B2017B7580090D38D /* set_window_size.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 094E4F3A2017B7380090D38D /* set_window_size.scpt */; };
+		092C6289201F58A400B3E831 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C6288201F58A400B3E831 /* StatusMenuController.swift */; };
+		092C628B201F9E7200B3E831 /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C628A201F9E7200B3E831 /* GlobalEventMonitor.swift */; };
+		092E007D20205781006FECF3 /* set_window_size.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 092E007B20205780006FECF3 /* set_window_size.scpt */; };
+		092E007E20205781006FECF3 /* get_frontapp_position.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 092E007C20205780006FECF3 /* get_frontapp_position.scpt */; };
+		092E008220209057006FECF3 /* WindowAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E008120209057006FECF3 /* WindowAnalyser.swift */; };
+		092E008B2020C37D006FECF3 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E00892020C37D006FECF3 /* Preferences.swift */; };
+		092E008C2020C37D006FECF3 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092E008A2020C37D006FECF3 /* Preferences.xib */; };
+		092E008F2020C465006FECF3 /* MarkingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E008D2020C465006FECF3 /* MarkingOverlay.swift */; };
+		092E00902020C465006FECF3 /* MarkingOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092E008E2020C465006FECF3 /* MarkingOverlay.xib */; };
 		098B3E562018C37300BD0C24 /* WindowSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B3E552018C37300BD0C24 /* WindowSetting.swift */; };
 		40369670EA6F04534AAF7DFD /* Pods_WindowMover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5E3DD8CB22D56E2D66D149 /* Pods_WindowMover.framework */; };
 /* End PBXBuildFile section */
@@ -25,10 +30,15 @@
 		09108AD42017AB53001026FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		09108AD62017AB53001026FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09108AD72017AB53001026FD /* WindowMover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WindowMover.entitlements; sourceTree = "<group>"; };
-		09108ADD2017AE66001026FD /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
-		09108ADF2017B156001026FD /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		09108AE02017B156001026FD /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
-		094E4F3A2017B7380090D38D /* set_window_size.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = set_window_size.scpt; sourceTree = "<group>"; };
+		092C6288201F58A400B3E831 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		092C628A201F9E7200B3E831 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventMonitor.swift; sourceTree = "<group>"; };
+		092E007B20205780006FECF3 /* set_window_size.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = set_window_size.scpt; sourceTree = "<group>"; };
+		092E007C20205780006FECF3 /* get_frontapp_position.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = get_frontapp_position.scpt; sourceTree = "<group>"; };
+		092E008120209057006FECF3 /* WindowAnalyser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowAnalyser.swift; sourceTree = "<group>"; };
+		092E00892020C37D006FECF3 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		092E008A2020C37D006FECF3 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		092E008D2020C465006FECF3 /* MarkingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkingOverlay.swift; sourceTree = "<group>"; };
+		092E008E2020C465006FECF3 /* MarkingOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkingOverlay.xib; sourceTree = "<group>"; };
 		098B3E552018C37300BD0C24 /* WindowSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSetting.swift; sourceTree = "<group>"; };
 		72231CA83FE399B4A5DB0EF1 /* Pods-WindowMover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindowMover.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover.debug.xcconfig"; sourceTree = "<group>"; };
 		A63C0A2C5717CC2C3C38C0B6 /* Pods-WindowMover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindowMover.release.xcconfig"; path = "Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover.release.xcconfig"; sourceTree = "<group>"; };
@@ -68,16 +78,21 @@
 		09108ACE2017AB53001026FD /* WindowMover */ = {
 			isa = PBXGroup;
 			children = (
-				094E4F3A2017B7380090D38D /* set_window_size.scpt */,
+				092E00892020C37D006FECF3 /* Preferences.swift */,
+				092E008A2020C37D006FECF3 /* Preferences.xib */,
+				092E007C20205780006FECF3 /* get_frontapp_position.scpt */,
+				092E007B20205780006FECF3 /* set_window_size.scpt */,
+				092C6288201F58A400B3E831 /* StatusMenuController.swift */,
 				09108ACF2017AB53001026FD /* AppDelegate.swift */,
 				09108AD12017AB53001026FD /* Assets.xcassets */,
 				09108AD32017AB53001026FD /* MainMenu.xib */,
 				09108AD62017AB53001026FD /* Info.plist */,
 				09108AD72017AB53001026FD /* WindowMover.entitlements */,
-				09108ADD2017AE66001026FD /* StatusMenuController.swift */,
-				09108ADF2017B156001026FD /* Preferences.swift */,
-				09108AE02017B156001026FD /* Preferences.xib */,
 				098B3E552018C37300BD0C24 /* WindowSetting.swift */,
+				092C628A201F9E7200B3E831 /* GlobalEventMonitor.swift */,
+				092E008120209057006FECF3 /* WindowAnalyser.swift */,
+				092E008D2020C465006FECF3 /* MarkingOverlay.swift */,
+				092E008E2020C465006FECF3 /* MarkingOverlay.xib */,
 			);
 			path = WindowMover;
 			sourceTree = "<group>";
@@ -161,10 +176,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				094E4F3B2017B7580090D38D /* set_window_size.scpt in Resources */,
+				092E00902020C465006FECF3 /* MarkingOverlay.xib in Resources */,
 				09108AD22017AB53001026FD /* Assets.xcassets in Resources */,
-				09108AE22017B156001026FD /* Preferences.xib in Resources */,
+				092E007D20205781006FECF3 /* set_window_size.scpt in Resources */,
 				09108AD52017AB53001026FD /* MainMenu.xib in Resources */,
+				092E008C2020C37D006FECF3 /* Preferences.xib in Resources */,
+				092E007E20205781006FECF3 /* get_frontapp_position.scpt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,10 +246,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				092E008F2020C465006FECF3 /* MarkingOverlay.swift in Sources */,
+				092E008B2020C37D006FECF3 /* Preferences.swift in Sources */,
 				098B3E562018C37300BD0C24 /* WindowSetting.swift in Sources */,
-				09108ADE2017AE66001026FD /* StatusMenuController.swift in Sources */,
+				092C628B201F9E7200B3E831 /* GlobalEventMonitor.swift in Sources */,
 				09108AD02017AB53001026FD /* AppDelegate.swift in Sources */,
-				09108AE12017B156001026FD /* Preferences.swift in Sources */,
+				092C6289201F58A400B3E831 /* StatusMenuController.swift in Sources */,
+				092E008220209057006FECF3 /* WindowAnalyser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
