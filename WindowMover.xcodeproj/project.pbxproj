@@ -19,6 +19,7 @@
 		092E008C2020C37D006FECF3 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092E008A2020C37D006FECF3 /* Preferences.xib */; };
 		092E008F2020C465006FECF3 /* MarkingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E008D2020C465006FECF3 /* MarkingOverlay.swift */; };
 		092E00902020C465006FECF3 /* MarkingOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092E008E2020C465006FECF3 /* MarkingOverlay.xib */; };
+		092E00A5202222A7006FECF3 /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E00A4202222A7006FECF3 /* AccessibilityManager.swift */; };
 		098B3E562018C37300BD0C24 /* WindowSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B3E552018C37300BD0C24 /* WindowSetting.swift */; };
 		40369670EA6F04534AAF7DFD /* Pods_WindowMover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5E3DD8CB22D56E2D66D149 /* Pods_WindowMover.framework */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		092E008A2020C37D006FECF3 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		092E008D2020C465006FECF3 /* MarkingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkingOverlay.swift; sourceTree = "<group>"; };
 		092E008E2020C465006FECF3 /* MarkingOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkingOverlay.xib; sourceTree = "<group>"; };
+		092E00A4202222A7006FECF3 /* AccessibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityManager.swift; sourceTree = "<group>"; };
 		098B3E552018C37300BD0C24 /* WindowSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSetting.swift; sourceTree = "<group>"; };
 		72231CA83FE399B4A5DB0EF1 /* Pods-WindowMover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindowMover.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover.debug.xcconfig"; sourceTree = "<group>"; };
 		A63C0A2C5717CC2C3C38C0B6 /* Pods-WindowMover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindowMover.release.xcconfig"; path = "Pods/Target Support Files/Pods-WindowMover/Pods-WindowMover.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				092E008120209057006FECF3 /* WindowAnalyser.swift */,
 				092E008D2020C465006FECF3 /* MarkingOverlay.swift */,
 				092E008E2020C465006FECF3 /* MarkingOverlay.xib */,
+				092E00A4202222A7006FECF3 /* AccessibilityManager.swift */,
 			);
 			path = WindowMover;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				092E00A5202222A7006FECF3 /* AccessibilityManager.swift in Sources */,
 				092E008F2020C465006FECF3 /* MarkingOverlay.swift in Sources */,
 				092E008B2020C37D006FECF3 /* Preferences.swift in Sources */,
 				098B3E562018C37300BD0C24 /* WindowSetting.swift in Sources */,

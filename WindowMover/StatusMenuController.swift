@@ -9,6 +9,7 @@
 import Cocoa
 import HotKey
 import Foundation
+import ApplicationServices
 
 class StatusMenuController: NSObject, NSTextFieldDelegate{
     @IBOutlet weak var statusMenu: NSMenu!
@@ -33,16 +34,20 @@ class StatusMenuController: NSObject, NSTextFieldDelegate{
         overlayWindow = MarkingOverlay()
         windowAnalyser = WindowAnalyser()
         
+        
         mouseUpHandler = GlobalEventMonitor(mask: .leftMouseUp, handler: { (mouseEvent: NSEvent?) in
             self.overlayWindow.window?.setIsVisible(false);
-            self.dragged = false
 
-            if(NSEvent.mouseLocation.x < self.showOverlayRange && self.windowAnalyser.isWindowMoving()){
+            if(NSEvent.mouseLocation.x < self.showOverlayRange && self.windowAnalyser.isWindowMoving() && self.dragged){
                 WindowSetting.runScript(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
-            }else if(NSEvent.mouseLocation.x > NSScreen.main!.frame.width - self.showOverlayRange && self.windowAnalyser.isWindowMoving()){
+            }else if(NSEvent.mouseLocation.x > NSScreen.main!.frame.width - self.showOverlayRange && self.windowAnalyser.isWindowMoving() && self.dragged){
                 WindowSetting.runScript(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 2), y: 0)
             }
+            else if(NSEvent.mouseLocation.y < self.showOverlayRange && self.windowAnalyser.isWindowMoving() && self.dragged){
+                WindowSetting.runScript(width: (Int)(NSScreen.main!.frame.width), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+            }
             
+            self.dragged = false
         })
         
         mouseDraggedHandler = GlobalEventMonitor(mask: .leftMouseDragged, handler: { (mouseEvent: NSEvent?) in
@@ -58,6 +63,9 @@ class StatusMenuController: NSObject, NSTextFieldDelegate{
             }else if(NSEvent.mouseLocation.x > NSScreen.main!.frame.width - self.showOverlayRange && self.windowAnalyser.isWindowMoving()){
                 self.overlayWindow.window?.setIsVisible(true);
                 self.overlayWindow.window?.setFrame(NSRect(x: NSScreen.main!.frame.width / 2, y: 0, width: NSScreen.main!.frame.width, height: NSScreen.main!.frame.height), display: true)
+            }else if(NSEvent.mouseLocation.y < self.showOverlayRange && self.windowAnalyser.isWindowMoving()){
+                self.overlayWindow.window?.setIsVisible(true);
+                self.overlayWindow.window?.setFrame(NSRect(x: 0, y: 0, width: NSScreen.main!.frame.width, height: NSScreen.main!.frame.height), display: true)
             }else{
                 self.overlayWindow.window?.setIsVisible(false);
             }
