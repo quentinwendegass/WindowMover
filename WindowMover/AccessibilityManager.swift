@@ -34,7 +34,7 @@ import ApplicationServices
 class AccessibilityManager{
     
     var foregroundApplication: NSRunningApplication?
-    var foregroundWindowElement: AnyObject?
+    var frontWindowElement: AnyObject?
     var mouseDownHandler : GlobalEventMonitor?
 
     
@@ -53,42 +53,47 @@ class AccessibilityManager{
     
     func setFrontWindowElement(){
         let appElement: AXUIElement = AXUIElementCreateApplication((foregroundApplication?.processIdentifier)!)
-        checkForError(error: AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &foregroundWindowElement))
+        checkForError(error: AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &frontWindowElement))
     }
     
     func setAccessibilityAttribute(type: UInt32, attribute: String, value: UnsafeRawPointer){
-        if(foregroundWindowElement != nil){
+        if(frontWindowElement != nil){
             let attributeValue : AXValue = AXValueCreate(AXValueType(rawValue: type)!, value)!
-            checkForError(error: AXUIElementSetAttributeValue(foregroundWindowElement as! AXUIElement, attribute as CFString, attributeValue))
+            checkForError(error: AXUIElementSetAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, attributeValue))
         }
     }
     
     func getAccessibilityAttribute(attribute: String) -> AnyObject?{
         var value: AnyObject?
-        if(foregroundWindowElement != nil){
-            checkForError(error: AXUIElementCopyAttributeValue(foregroundWindowElement as! AXUIElement, attribute as CFString, &value))
+        if(frontWindowElement != nil){
+            checkForError(error: AXUIElementCopyAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, &value))
         }
         return value
     }
     
     func setFrontWindowPosition(x: Int, y: Int){
-        //stub
+        var position = CGPoint(x: x, y: y)
+        setAccessibilityAttribute(type: kAXValueCGPointType, attribute: kAXPositionAttribute, value: &position)
     }
     
     func getFrontWindowPosition() -> (x: Int, y: Int){
-        //stub
-        return (0, 0)
+        let value: AnyObject? = getAccessibilityAttribute(attribute: kAXPositionAttribute)
+        var point: CGPoint?
+        AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGPointType)!, &point)
+        return (Int(point?.x ?? 0), Int(point?.y ?? 0))
     }
     
     func setFrontWindowSize(width: Int, height: Int){
-        //stub
+        var size = CGSize(width: width, height: height)
+        setAccessibilityAttribute(type: kAXValueCGSizeType, attribute: kAXSizeAttribute, value: &size)
     }
     
     func getFrontWindowSize() -> (width: Int, height: Int){
-        //stub
-        return (0, 0)
+        let value: AnyObject? = getAccessibilityAttribute(attribute: kAXSizeAttribute)
+        var size: CGSize?
+        AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGSizeType)!, &size)
+        return (Int(size?.width ?? 0), Int(size?.height ?? 0))
     }
-    
     
     func checkForError(error: AXError){
         switch error {
