@@ -19,7 +19,7 @@ class WindowSetting {
                 return
             }
             hotkey.keyDownHandler = {
-                WindowSetting.runScript(width: self.width, height: self.height, x: self.x, y: self.y)
+                WindowSetting.setWindowForegroundAttributes(width: self.width, height: self.height, x: self.x, y: self.y)
             }
         }
     }
@@ -35,11 +35,8 @@ class WindowSetting {
         self.hotkey = hotkey
     }
     
-    static func runScript(width: Int, height: Int, x:Int = 0, y:Int = 0){
-        let task = Process()
-        task.launchPath = "/usr/bin/osascript"
-        task.arguments = ["\(String(describing: Bundle.main.path(forResource: "set_window_size", ofType: "scpt")!))",
-            "\(width)", "\(height)", "\(x)", "\(y)"]
-        task.launch()
+    static func setWindowForegroundAttributes(width: Int, height: Int, x:Int = 0, y:Int = 0){
+        AccessibilityManager.sharedInstance.setFrontWindowPosition(x: x, y: x)
+        AccessibilityManager.sharedInstance.setFrontWindowSize(width: width, height: height)
     }
 }

@@ -34,17 +34,16 @@ class StatusMenuController: NSObject, NSTextFieldDelegate{
         overlayWindow = MarkingOverlay()
         windowAnalyser = WindowAnalyser()
         
-        
         mouseUpHandler = GlobalEventMonitor(mask: .leftMouseUp, handler: { (mouseEvent: NSEvent?) in
             self.overlayWindow.window?.setIsVisible(false);
 
             if(NSEvent.mouseLocation.x < self.showOverlayRange && self.windowAnalyser.isWindowMoving() && self.dragged){
-                WindowSetting.runScript(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+                WindowSetting.setWindowForegroundAttributes(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
             }else if(NSEvent.mouseLocation.x > NSScreen.main!.frame.width - self.showOverlayRange && self.windowAnalyser.isWindowMoving() && self.dragged){
-                WindowSetting.runScript(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 2), y: 0)
+                WindowSetting.setWindowForegroundAttributes(width: (Int)(NSScreen.main!.frame.width / 2), height: (Int)(NSScreen.main!.frame.height), x: (Int)(NSScreen.main!.frame.width / 2), y: 0)
             }
             else if(NSEvent.mouseLocation.y < self.showOverlayRange && self.windowAnalyser.isWindowMoving() && self.dragged){
-                WindowSetting.runScript(width: (Int)(NSScreen.main!.frame.width), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
+                WindowSetting.setWindowForegroundAttributes(width: (Int)(NSScreen.main!.frame.width), height: (Int)(NSScreen.main!.frame.height), x: 0, y: 0)
             }
             
             self.dragged = false

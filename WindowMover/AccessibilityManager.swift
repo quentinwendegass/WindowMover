@@ -7,31 +7,13 @@
 //
 
 
-//Working example
-
-/**
- let app: NSRunningApplication? = NSWorkspace.shared.frontmostApplication
- let appElement: AXUIElement = AXUIElementCreateApplication((app?.processIdentifier)!)
- var windowElement: AnyObject?
- AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &windowElement)
-
- if(windowElement != nil){
-    //Get attribute value
-    var value: AnyObject?
-    AXUIElementCopyAttributeValue(windowElement as! AXUIElement, kAXPositionAttribute as CFString, &value)
-    print(value as Any)
-
-    var rect: CGRect = CGRect(x: 0, y: 0, width: 1000, height: 1000)
-    let sizeRef : AXValue = AXValueCreate(AXValueType(rawValue: kAXValueCGPointType)!, &rect.origin)!
-    AXUIElementSetAttributeValue(windowElement as! AXUIElement, kAXPositionAttribute as CFString, sizeRef)
- }
-*/
-
 import Foundation
 import AppKit
 import ApplicationServices
 
 class AccessibilityManager{
+    
+    static let sharedInstance = AccessibilityManager()
     
     var foregroundApplication: NSRunningApplication?
     var frontWindowElement: AnyObject?
@@ -42,6 +24,7 @@ class AccessibilityManager{
         mouseDownHandler = GlobalEventMonitor(mask: .leftMouseDown, handler: { (mouseEvent: NSEvent?) in
             self.setForegroundApplication()
         })
+        mouseDownHandler?.start()
     }
     
     func setForegroundApplication(){
@@ -53,20 +36,26 @@ class AccessibilityManager{
     
     func setFrontWindowElement(){
         let appElement: AXUIElement = AXUIElementCreateApplication((foregroundApplication?.processIdentifier)!)
-        checkForError(error: AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &frontWindowElement))
+        if(checkForError(error: AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &frontWindowElement))){
+            print("Error at setFrontWindowElement")
+        }
     }
     
     func setAccessibilityAttribute(type: UInt32, attribute: String, value: UnsafeRawPointer){
         if(frontWindowElement != nil){
             let attributeValue : AXValue = AXValueCreate(AXValueType(rawValue: type)!, value)!
-            checkForError(error: AXUIElementSetAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, attributeValue))
+            if(checkForError(error: AXUIElementSetAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, attributeValue))){
+                print("Error at setAccessibilityAttribute")
+            }
         }
     }
     
     func getAccessibilityAttribute(attribute: String) -> AnyObject?{
         var value: AnyObject?
         if(frontWindowElement != nil){
-            checkForError(error: AXUIElementCopyAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, &value))
+            if(checkForError(error: AXUIElementCopyAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, &value))){
+                print("Error at getAccessibilityAttribute")
+            }
         }
         return value
     }
@@ -78,9 +67,19 @@ class AccessibilityManager{
     
     func getFrontWindowPosition() -> (x: Int, y: Int){
         let value: AnyObject? = getAccessibilityAttribute(attribute: kAXPositionAttribute)
-        var point: CGPoint?
-        AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGPointType)!, &point)
-        return (Int(point?.x ?? 0), Int(point?.y ?? 0))
+        var pointer: CGPoint?
+        
+        if(value != nil){
+            AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGPointType)!, &pointer)
+        }
+        let point: CGPoint = getPointerValue(address: &pointer, as: CGPoint.self)
+
+        return (Int(point.x) ,Int(point.y))
+    }
+    
+    func getPointerValue<T>(address p: UnsafeMutableRawPointer, as type: T.Type) -> T {
+        let value = p.load(as: type)
+        return value
     }
     
     func setFrontWindowSize(width: Int, height: Int){
@@ -90,12 +89,17 @@ class AccessibilityManager{
     
     func getFrontWindowSize() -> (width: Int, height: Int){
         let value: AnyObject? = getAccessibilityAttribute(attribute: kAXSizeAttribute)
-        var size: CGSize?
-        AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGSizeType)!, &size)
-        return (Int(size?.width ?? 0), Int(size?.height ?? 0))
+        var pointer: CGSize?
+        
+        if(value != nil){
+            AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGSizeType)!, &pointer)
+        }
+        let size: CGSize = getPointerValue(address: &pointer, as: CGSize.self)
+        
+        return (Int(size.width) ,Int(size.height))
     }
     
-    func checkForError(error: AXError){
+    func checkForError(error: AXError) -> Bool{
         switch error {
         case AXError.actionUnsupported:
             print("AXError: \(error.rawValue) actionUnsupported")
@@ -128,8 +132,9 @@ class AccessibilityManager{
         case AXError.parameterizedAttributeUnsupported:
             print("AXError: \(error.rawValue) parameterizedAttributeUnsupported")
         case AXError.success:
-            print()
+            return false
         }
+        return true
     }
 }
 
