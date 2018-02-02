@@ -14,7 +14,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="WindowMover" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="CVv-tt-KlE" userLabel="StatusMenuController" customClass="StatusMenuController" customModule="WindowMover" customModuleProvider="target">
+        <customObject id="CVv-tt-KlE" userLabel="StatusMenuController" customClass="WindowLayoutController" customModule="WindowMover" customModuleProvider="target">
             <connections>
                 <outlet property="statusMenu" destination="Dt1-rJ-WxZ" id="ADc-iS-Cbm"/>
             </connections>

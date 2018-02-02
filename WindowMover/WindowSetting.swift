@@ -11,32 +11,57 @@ import HotKey
 
 class WindowSetting {
     
-    private var width, height, x, y: Int
+    enum Orientation {
+        case topLeft
+        case bottomLeft
+        case topRight
+        case bottomRight
+    }
     
-    private var hotkey: HotKey? {
+    static let usableFrame = NSScreen.main!.visibleFrame
+    static let fullFrame = NSScreen.main!.frame
+    static let titelBarHeight = WindowSetting.fullFrame.height - WindowSetting.usableFrame.height - (WindowSetting.usableFrame.origin.y - WindowSetting.fullFrame.origin.y)
+
+    
+    var orientation: Orientation
+    var rect: CGRect
+    var hotkey: HotKey? {
         didSet {
             guard let hotkey = hotkey else {
                 return
             }
             hotkey.keyDownHandler = {
-                WindowSetting.setWindowForegroundAttributes(width: self.width, height: self.height, x: self.x, y: self.y)
+                self.attributesToFrontWindow()
             }
         }
     }
     
-    init(width: Int, height: Int, x: Int, y: Int) {
-        self.width = width
-        self.height = height
-        self.x = x
-        self.y = y
+    init(width: CGFloat, height: CGFloat, orientation: Orientation) {
+        self.orientation = orientation
+        switch orientation {
+        case .bottomLeft:
+            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x, y: WindowSetting.titelBarHeight + WindowSetting.usableFrame.height - height, width: width, height: height)
+        case .topLeft:
+            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x, y: WindowSetting.titelBarHeight, width: width, height: height)
+        case .bottomRight:
+            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x + WindowSetting.usableFrame.width - width, y: WindowSetting.titelBarHeight + WindowSetting.usableFrame.height - height,  width: width, height: height)
+        case .topRight:
+            self.rect = CGRect(x:  WindowSetting.usableFrame.origin.x + WindowSetting.usableFrame.width - width, y: WindowSetting.titelBarHeight, width: width, height: height)
+        }
     }
     
     func setHotKey(hotkey: HotKey){
         self.hotkey = hotkey
     }
     
-    static func setWindowForegroundAttributes(width: Int, height: Int, x:Int = 0, y:Int = 0){
-        AccessibilityManager.sharedInstance.setFrontWindowPosition(x: x, y: x)
-        AccessibilityManager.sharedInstance.setFrontWindowSize(width: width, height: height)
+    func attributesToFrontWindow(){
+        AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x, y: self.rect.origin.y)
+        AccessibilityAccessor.shared.setFrontWindowSize(width: self.rect.width, height: self.rect.height)
+    }
+    
+    @available(*, deprecated)
+    static func setWindowForegroundAttributes(width: CGFloat, height: CGFloat, x:CGFloat = 0, y:CGFloat = 0){
+        AccessibilityAccessor.shared.setFrontWindowPosition(x: x, y: y)
+        AccessibilityAccessor.shared.setFrontWindowSize(width: width, height: height)
     }
 }

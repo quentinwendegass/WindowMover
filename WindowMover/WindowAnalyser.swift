@@ -16,7 +16,7 @@ class WindowAnalyser{
     private var windowMoving: Bool
     private var dragEventCount: Int
     
-    private var lastWindowPositionX, lastWindowPositionY: Int
+    private var lastWindowPositionX, lastWindowPositionY: CGFloat
     
     init() {
         windowMoving = false
@@ -31,11 +31,11 @@ class WindowAnalyser{
     
     public func mouseDragged(firstDrag: Bool){
         if(firstDrag){
-            (lastWindowPositionX, lastWindowPositionY) = AccessibilityManager.sharedInstance.getFrontWindowPosition()
+            (lastWindowPositionX, lastWindowPositionY) = AccessibilityAccessor.shared.getFrontWindowPosition()
             dragEventCount = 1
             windowMoving = false
         }else if(dragEventCount <= maxEventCount){
-            let (windowPositionX, windowPositionY) = AccessibilityManager.sharedInstance.getFrontWindowPosition()
+            let (windowPositionX, windowPositionY) = AccessibilityAccessor.shared.getFrontWindowPosition()
             if(windowPositionX != lastWindowPositionX || windowPositionY != lastWindowPositionY){
                 windowMoving = true
                 dragEventCount = maxEventCount + 1

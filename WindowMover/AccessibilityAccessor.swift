@@ -11,9 +11,9 @@ import Foundation
 import AppKit
 import ApplicationServices
 
-class AccessibilityManager{
+class AccessibilityAccessor{
     
-    static let sharedInstance = AccessibilityManager()
+    static let shared = AccessibilityAccessor()
     
     var foregroundApplication: NSRunningApplication?
     var frontWindowElement: AnyObject?
@@ -28,10 +28,8 @@ class AccessibilityManager{
     }
     
     func setForegroundApplication(){
-        if(foregroundApplication == nil || !((foregroundApplication?.isEqual(NSWorkspace.shared.frontmostApplication)) ?? false)){
-            foregroundApplication = NSWorkspace.shared.frontmostApplication
-            setFrontWindowElement()
-        }
+        foregroundApplication = NSWorkspace.shared.frontmostApplication
+        setFrontWindowElement()
     }
     
     func setFrontWindowElement(){
@@ -60,12 +58,12 @@ class AccessibilityManager{
         return value
     }
     
-    func setFrontWindowPosition(x: Int, y: Int){
+    func setFrontWindowPosition(x: CGFloat, y: CGFloat){
         var position = CGPoint(x: x, y: y)
         setAccessibilityAttribute(type: kAXValueCGPointType, attribute: kAXPositionAttribute, value: &position)
     }
     
-    func getFrontWindowPosition() -> (x: Int, y: Int){
+    func getFrontWindowPosition() -> (x: CGFloat, y: CGFloat){
         let value: AnyObject? = getAccessibilityAttribute(attribute: kAXPositionAttribute)
         var pointer: CGPoint?
         
@@ -74,20 +72,15 @@ class AccessibilityManager{
         }
         let point: CGPoint = getPointerValue(address: &pointer, as: CGPoint.self)
 
-        return (Int(point.x) ,Int(point.y))
+        return (point.x , point.y)
     }
     
-    func getPointerValue<T>(address p: UnsafeMutableRawPointer, as type: T.Type) -> T {
-        let value = p.load(as: type)
-        return value
-    }
-    
-    func setFrontWindowSize(width: Int, height: Int){
+    func setFrontWindowSize(width: CGFloat, height: CGFloat){
         var size = CGSize(width: width, height: height)
         setAccessibilityAttribute(type: kAXValueCGSizeType, attribute: kAXSizeAttribute, value: &size)
     }
     
-    func getFrontWindowSize() -> (width: Int, height: Int){
+    func getFrontWindowSize() -> (width: CGFloat, height: CGFloat){
         let value: AnyObject? = getAccessibilityAttribute(attribute: kAXSizeAttribute)
         var pointer: CGSize?
         
@@ -96,7 +89,12 @@ class AccessibilityManager{
         }
         let size: CGSize = getPointerValue(address: &pointer, as: CGSize.self)
         
-        return (Int(size.width) ,Int(size.height))
+        return (size.width, size.height)
+    }
+    
+    func getPointerValue<T>(address p: UnsafeMutableRawPointer, as type: T.Type) -> T {
+        let value = p.load(as: type)
+        return value
     }
     
     func checkForError(error: AXError) -> Bool{
