@@ -19,7 +19,6 @@ class DragManager {
     let overlayWindow: MarkingOverlay
     let windowAnalyser: WindowAnalyser
 
-    
     var leftSetting: WindowSetting?
     var topLeftSetting: WindowSetting?
     var bottomLeftSetting: WindowSetting?
@@ -31,8 +30,16 @@ class DragManager {
     
     var dragged: Bool
     
-    let leftArea = CGRect(x: 0, y: 40, width: 40, height: WindowSetting.fullFrame.height - 80)
-    let rightArea = CGRect(x: WindowSetting.fullFrame.width - 40, y: 40, width: 40, height: WindowSetting.fullFrame.height - 80)
+    static let showOverlayWidth: CGFloat = 5
+    
+    let leftArea = CGRect(x: 0, y: showOverlayWidth, width: showOverlayWidth, height: WindowSetting.fullFrame.height - showOverlayWidth*2)
+    let topLeftArea = CGRect(x: 0, y: WindowSetting.fullFrame.height - showOverlayWidth, width: showOverlayWidth, height: showOverlayWidth)
+    let bottomLeftArea = CGRect(x: 0, y: 0, width: showOverlayWidth, height: showOverlayWidth)
+    let rightArea = CGRect(x: WindowSetting.fullFrame.width - showOverlayWidth, y: showOverlayWidth, width: showOverlayWidth, height: WindowSetting.fullFrame.height - showOverlayWidth*2)
+    let topRightArea = CGRect(x: WindowSetting.fullFrame.width - showOverlayWidth, y: WindowSetting.fullFrame.height - showOverlayWidth, width: showOverlayWidth, height: showOverlayWidth)
+    let bottomRightArea = CGRect(x: WindowSetting.fullFrame.width - showOverlayWidth, y: 0, width: showOverlayWidth, height: showOverlayWidth)
+    let topArea = CGRect(x: showOverlayWidth, y: WindowSetting.fullFrame.height - showOverlayWidth, width: WindowSetting.fullFrame.width - showOverlayWidth*2, height: showOverlayWidth)
+    let bottomArea = CGRect(x: showOverlayWidth, y: 0, width: WindowSetting.fullFrame.width - showOverlayWidth*2, height: showOverlayWidth)
     
 
     init() {
@@ -45,6 +52,12 @@ class DragManager {
             
             if(self.leftSetting != nil && self.layoutAreaMouseUp(windowSetting: self.leftSetting!, area: self.leftArea)){}
             else if(self.rightSetting != nil && self.layoutAreaMouseUp(windowSetting: self.rightSetting!, area: self.rightArea)){}
+            else if(self.bottomSetting != nil && self.layoutAreaMouseUp(windowSetting: self.bottomSetting!, area: self.bottomArea)){}
+            else if(self.topSetting != nil && self.layoutAreaMouseUp(windowSetting: self.topSetting!, area: self.topArea)){}
+            else if(self.topLeftSetting != nil && self.layoutAreaMouseUp(windowSetting: self.topLeftSetting!, area: self.topLeftArea)){}
+            else if(self.bottomLeftSetting != nil && self.layoutAreaMouseUp(windowSetting: self.bottomLeftSetting!, area: self.bottomLeftArea)){}
+            else if(self.topRightSetting != nil && self.layoutAreaMouseUp(windowSetting: self.topRightSetting!, area: self.topRightArea)){}
+            else if(self.bottomRightSetting != nil && self.layoutAreaMouseUp(windowSetting: self.bottomRightSetting!, area: self.bottomRightArea)){}
             else{
                 self.overlayWindow.window?.setIsVisible(false);
             }
@@ -57,6 +70,12 @@ class DragManager {
             
             if(self.leftSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.leftSetting!, area: self.leftArea)){}
             else if(self.rightSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.rightSetting!, area: self.rightArea)){}
+            else if(self.bottomSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.bottomSetting!, area: self.bottomArea)){}
+            else if(self.topSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.topSetting!, area: self.topArea)){}
+            else if(self.topLeftSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.topLeftSetting!, area: self.topLeftArea)){}
+            else if(self.bottomLeftSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.bottomLeftSetting!, area: self.bottomLeftArea)){}
+            else if(self.topRightSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.topRightSetting!, area: self.topRightArea)){}
+            else if(self.bottomRightSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.bottomRightSetting!, area: self.bottomRightArea)){}
             else{
                 self.overlayWindow.window?.setIsVisible(false);
             }

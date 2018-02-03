@@ -75,9 +75,14 @@ class AccessibilityAccessor{
         return (point.x , point.y)
     }
     
-    func setFrontWindowSize(width: CGFloat, height: CGFloat){
+    func setFrontWindowSize(width: CGFloat, height: CGFloat) -> Bool{
         var size = CGSize(width: width, height: height)
         setAccessibilityAttribute(type: kAXValueCGSizeType, attribute: kAXSizeAttribute, value: &size)
+        
+        if(getFrontWindowSize() != (width, height)){
+            return false
+        }
+        return true
     }
     
     func getFrontWindowSize() -> (width: CGFloat, height: CGFloat){

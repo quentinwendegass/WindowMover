@@ -39,18 +39,24 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
         let rightHalf = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .topRight)
         rightHalf.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.command, .option, .shift])))
         
-        let rightQuarter = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .bottomRight)
+        let rightQuarter = WindowSetting(width: NSScreen.main!.visibleFrame.width / 4, height: NSScreen.main!.visibleFrame.height, orientation: .bottomRight)
         rightQuarter.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.option, .shift])))
         
-        let rightGibbous = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .bottomRight)
+        let rightGibbous = WindowSetting(width: NSScreen.main!.visibleFrame.width * 3/4, height: NSScreen.main!.visibleFrame.height, orientation: .bottomRight)
         rightGibbous.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .rightArrow, modifiers: [.control, .shift])))
         
-        let full = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .bottomRight)
+        let full = WindowSetting(width: NSScreen.main!.visibleFrame.width, height: NSScreen.main!.visibleFrame.height, orientation: .bottomRight)
         full.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .f, modifiers: [.command, .option, .shift])))
  
         let dragManager = DragManager()
         dragManager.leftSetting = leftHalf
         dragManager.rightSetting = rightHalf
+        dragManager.topLeftSetting = leftGibbous
+        dragManager.bottomLeftSetting = leftQuarter
+        dragManager.topRightSetting = rightGibbous
+        dragManager.bottomRightSetting = rightQuarter
+        dragManager.bottomSetting = full
+        dragManager.topSetting = full
 
     }
     

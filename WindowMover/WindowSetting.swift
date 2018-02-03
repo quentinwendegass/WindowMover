@@ -56,7 +56,13 @@ class WindowSetting {
     
     func attributesToFrontWindow(){
         AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x, y: self.rect.origin.y)
-        AccessibilityAccessor.shared.setFrontWindowSize(width: self.rect.width, height: self.rect.height)
+        if(!AccessibilityAccessor.shared.setFrontWindowSize(width: self.rect.width, height: self.rect.height)){
+            if(orientation == .bottomRight || orientation == .topRight){
+                let newSize = AccessibilityAccessor.shared.getFrontWindowSize()
+                AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x - (newSize.width - self.rect.width), y: self.rect.origin.y)
+                
+            }
+        }
     }
     
     @available(*, deprecated)
