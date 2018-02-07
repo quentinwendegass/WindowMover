@@ -17,6 +17,27 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
     var preferencesWindow: Preferences!
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
+    var nextWindow: HotKey? {
+        didSet {
+            guard let hotkey = nextWindow else {
+                return
+            }
+            hotkey.keyDownHandler = {
+                AccessibilityAccessor.shared.changeFrontWindow()
+            }
+        }
+    }
+    
+    var lastWindow: HotKey? {
+        didSet {
+            guard let hotkey = lastWindow else {
+                return
+            }
+            hotkey.keyDownHandler = {
+                AccessibilityAccessor.shared.changeToLastFrontWindow()
+            }
+        }
+    }
     
     override func awakeFromNib() {
         let icon = NSImage(named: NSImage.Name(rawValue: "statusIcon"))
@@ -25,6 +46,10 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
         statusItem.menu = statusMenu
         
         preferencesWindow = Preferences()
+        
+        nextWindow = HotKey(keyCombo: KeyCombo(key: .f, modifiers: [.command]))
+        lastWindow = HotKey(keyCombo: KeyCombo(key: .g, modifiers: [.command]))
+
         
         
         let leftHalf = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .topLeft)
