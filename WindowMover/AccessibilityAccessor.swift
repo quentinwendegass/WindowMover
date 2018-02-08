@@ -14,7 +14,7 @@ import ApplicationServices
 class AccessibilityAccessor{
     
     static let shared = AccessibilityAccessor()
-    
+
     var foregroundApplication: NSRunningApplication?
     var frontWindowElement: AnyObject?
     var windowElements: AnyObject?
@@ -29,14 +29,18 @@ class AccessibilityAccessor{
     
     func changeFrontWindow(){
         if(windowElements != nil && windowElements!.lastObject != nil){
-            AXUIElementPerformAction(windowElements!.lastObject as! AXUIElement,kAXRaiseAction as CFString)
+            if(checkForError(AXUIElementPerformAction(windowElements!.lastObject as! AXUIElement,kAXRaiseAction as CFString))){
+                 print("Error at changeFrontWindow()")
+            }
             setWindowElements()
         }
     }
     
     func changeToLastFrontWindow(){
         if(windowElements != nil && windowElements!.count > 1){
-            AXUIElementPerformAction(windowElements!.object(at: 1) as! AXUIElement,kAXRaiseAction as CFString)
+            if(checkForError(AXUIElementPerformAction(windowElements!.object(at: 1) as! AXUIElement,kAXRaiseAction as CFString))){
+                print("Error at changeToLastFrontWindow()")
+            }
             setWindowElements()
         }
     }
@@ -45,29 +49,30 @@ class AccessibilityAccessor{
         if(foregroundApplication != NSWorkspace.shared.frontmostApplication){
             foregroundApplication = NSWorkspace.shared.frontmostApplication
         }
-        setFrontWindowElement()
         setWindowElements()
     }
     
     func setWindowElements(){
         let appElement: AXUIElement = AXUIElementCreateApplication((foregroundApplication?.processIdentifier)!)
-        if(checkForError(error: AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowElements))){
-            print("Error at setWindowElements")
+        if(checkForError(AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowElements))){
+            print("Error at setWindowElements()")
         }
+        frontWindowElement = windowElements?.firstObject as AnyObject
     }
     
+    @available(*, deprecated)
     func setFrontWindowElement(){
         let appElement: AXUIElement = AXUIElementCreateApplication((foregroundApplication?.processIdentifier)!)
-        if(checkForError(error: AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &frontWindowElement))){
-            print("Error at setFrontWindowElement")
+        if(checkForError(AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &frontWindowElement))){
+            print("Error at setFrontWindowElement()")
         }
     }
     
     func setAccessibilityAttribute(type: UInt32, attribute: String, value: UnsafeRawPointer){
         if(frontWindowElement != nil){
             let attributeValue : AXValue = AXValueCreate(AXValueType(rawValue: type)!, value)!
-            if(checkForError(error: AXUIElementSetAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, attributeValue))){
-                print("Error at setAccessibilityAttribute")
+            if(checkForError( AXUIElementSetAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, attributeValue))){
+                print("Error at setAccessibilityAttribute()")
             }
         }
     }
@@ -75,8 +80,8 @@ class AccessibilityAccessor{
     func getAccessibilityAttribute(attribute: String) -> AnyObject?{
         var value: AnyObject?
         if(frontWindowElement != nil){
-            if(checkForError(error: AXUIElementCopyAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, &value))){
-                print("Error at getAccessibilityAttribute")
+            if(checkForError( AXUIElementCopyAttributeValue(frontWindowElement as! AXUIElement, attribute as CFString, &value))){
+                print("Error at getAccessibilityAttribute()")
             }
         }
         return value
@@ -126,7 +131,7 @@ class AccessibilityAccessor{
         return value
     }
     
-    func checkForError(error: AXError) -> Bool{
+    func checkForError(_ error: AXError) -> Bool{
         switch error {
         case AXError.actionUnsupported:
             print("AXError: \(error.rawValue) actionUnsupported")

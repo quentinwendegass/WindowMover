@@ -48,7 +48,7 @@ class DragManager {
         dragged = false
 
         mouseUpHandler = GlobalEventMonitor(mask: .leftMouseUp, handler: { (mouseEvent: NSEvent?) in
-            self.overlayWindow.window?.setIsVisible(false);
+            self.overlayWindow.hide()
             
             if(self.leftSetting != nil && self.layoutAreaMouseUp(windowSetting: self.leftSetting!, area: self.leftArea)){}
             else if(self.rightSetting != nil && self.layoutAreaMouseUp(windowSetting: self.rightSetting!, area: self.rightArea)){}
@@ -58,9 +58,7 @@ class DragManager {
             else if(self.bottomLeftSetting != nil && self.layoutAreaMouseUp(windowSetting: self.bottomLeftSetting!, area: self.bottomLeftArea)){}
             else if(self.topRightSetting != nil && self.layoutAreaMouseUp(windowSetting: self.topRightSetting!, area: self.topRightArea)){}
             else if(self.bottomRightSetting != nil && self.layoutAreaMouseUp(windowSetting: self.bottomRightSetting!, area: self.bottomRightArea)){}
-            else{
-                self.overlayWindow.window?.setIsVisible(false);
-            }
+
             self.dragged = false
         })
         mouseUpHandler?.start()
@@ -77,7 +75,7 @@ class DragManager {
             else if(self.topRightSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.topRightSetting!, area: self.topRightArea)){}
             else if(self.bottomRightSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.bottomRightSetting!, area: self.bottomRightArea)){}
             else{
-                self.overlayWindow.window?.setIsVisible(false);
+                self.overlayWindow.hide()
             }
             
             if(!self.dragged){
@@ -97,8 +95,7 @@ class DragManager {
     
     func layoutAreaMouseDragged(windowSetting: WindowSetting, area: CGRect) -> Bool{
         if(self.isMouseInRect(rect: area) && self.windowAnalyser.isWindowMoving()){
-            self.overlayWindow.window?.setIsVisible(true);
-            self.overlayWindow.window?.setFrame(CGRect(x: windowSetting.rect.origin.x, y: WindowSetting.fullFrame.height - windowSetting.rect.origin.y - windowSetting.rect.height, width: windowSetting.rect.width, height:  windowSetting.rect.height), display: true)
+            self.overlayWindow.show(setting: windowSetting)
             return true
         }
         return false
