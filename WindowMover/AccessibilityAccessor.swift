@@ -86,6 +86,16 @@ class AccessibilityAccessor{
         return value
     }
     
+    func getAccessibilityAttribute(attribute: String, from: AnyObject?) -> AnyObject?{
+        var value: AnyObject?
+        if(from != nil){
+            if(checkForError( AXUIElementCopyAttributeValue(from as! AXUIElement, attribute as CFString, &value))){
+                print("Error at getAccessibilityAttribute()")
+            }
+        }
+        return value
+    }
+    
     func setFrontWindowPosition(x: CGFloat, y: CGFloat){
         var position = CGPoint(x: x, y: y)
         setAccessibilityAttribute(type: kAXValueCGPointType, attribute: kAXPositionAttribute, value: &position)
@@ -116,7 +126,7 @@ class AccessibilityAccessor{
     func getFrontWindowSize() -> (width: CGFloat, height: CGFloat){
         let value: AnyObject? = getAccessibilityAttribute(attribute: kAXSizeAttribute)
         var pointer: CGSize?
-        
+                
         if(value != nil){
             AXValueGetValue(value as! AXValue, AXValueType(rawValue: kAXValueCGSizeType)!, &pointer)
         }

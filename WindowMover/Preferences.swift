@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import Carbon
+import HotKey
 
 class Preferences: NSWindowController {
     
@@ -20,6 +22,13 @@ class Preferences: NSWindowController {
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        
+        let key = HotKey(carbonKeyCode: UInt32(event.keyCode), carbonModifiers: event.modifierFlags.carbonFlags)
+
+        print(key.keyCombo)
     }
     
 }

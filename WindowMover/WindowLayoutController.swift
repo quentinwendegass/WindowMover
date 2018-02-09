@@ -47,10 +47,8 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
         
         preferencesWindow = Preferences()
         
-        nextWindow = HotKey(keyCombo: KeyCombo(key: .f, modifiers: [.command]))
+        nextWindow = HotKey(keyCombo: KeyCombo(carbonKeyCode: 10, carbonModifiers: 256))
         lastWindow = HotKey(keyCombo: KeyCombo(key: .g, modifiers: [.command]))
-
-        
         
         let leftHalf = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .topLeft)
         leftHalf.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.command, .option, .shift])))
@@ -82,7 +80,7 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
         dragManager.bottomRightSetting = rightQuarter
         dragManager.bottomSetting = full
         dragManager.topSetting = full
-
+        
     }
     
     @IBAction func preferencesClicked(_ sender: NSMenuItem) {
