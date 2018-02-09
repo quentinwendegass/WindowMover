@@ -20,7 +20,7 @@ class AccessibilityAccessor{
     var windowElements: AnyObject?
     var mouseDownHandler : GlobalEventMonitor?
     
-    init(){            
+    init(){
         mouseDownHandler = GlobalEventMonitor(mask: .leftMouseDown, handler: { (mouseEvent: NSEvent?) in
             self.setForegroundApplication()
         })
@@ -50,6 +50,7 @@ class AccessibilityAccessor{
             foregroundApplication = NSWorkspace.shared.frontmostApplication
         }
         setWindowElements()
+        setFrontWindowElement()
     }
     
     func setWindowElements(){
@@ -57,10 +58,8 @@ class AccessibilityAccessor{
         if(checkForError(AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowElements))){
             print("Error at setWindowElements()")
         }
-        frontWindowElement = windowElements?.firstObject as AnyObject
     }
     
-    @available(*, deprecated)
     func setFrontWindowElement(){
         let appElement: AXUIElement = AXUIElementCreateApplication((foregroundApplication?.processIdentifier)!)
         if(checkForError(AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &frontWindowElement))){
