@@ -17,24 +17,24 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
     var preferencesWindow: Preferences!
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
-    var nextWindow: HotKey? {
+    var windowForeward: HotKey? {
         didSet {
-            guard let hotkey = nextWindow else {
+            guard let hotkey = windowForeward else {
                 return
             }
             hotkey.keyDownHandler = {
-                AccessibilityAccessor.shared.changeFrontWindow()
+                AccessibilityAccessor.shared.changeFrontWindowForeward()
             }
         }
     }
     
-    var lastWindow: HotKey? {
+    var windowBackward: HotKey? {
         didSet {
-            guard let hotkey = lastWindow else {
+            guard let hotkey = windowBackward else {
                 return
             }
             hotkey.keyDownHandler = {
-                AccessibilityAccessor.shared.changeToLastFrontWindow()
+                AccessibilityAccessor.shared.changeFrontWindowBackward()
             }
         }
     }
@@ -47,8 +47,8 @@ class WindowLayoutController: NSObject, NSTextFieldDelegate{
         
         preferencesWindow = Preferences()
         
-        nextWindow = HotKey(keyCombo: KeyCombo(carbonKeyCode: 10, carbonModifiers: 256))
-        lastWindow = HotKey(keyCombo: KeyCombo(key: .g, modifiers: [.command]))
+        windowForeward = HotKey(keyCombo: KeyCombo(carbonKeyCode: 10, carbonModifiers: 256))
+        windowBackward = HotKey(keyCombo: KeyCombo(carbonKeyCode: 10, carbonModifiers: 768))
         
         let leftHalf = WindowSetting(width: NSScreen.main!.visibleFrame.width / 2, height: NSScreen.main!.visibleFrame.height, orientation: .topLeft)
         leftHalf.setHotKey(hotkey: HotKey(keyCombo: KeyCombo(key: .leftArrow, modifiers: [.command, .option, .shift])))

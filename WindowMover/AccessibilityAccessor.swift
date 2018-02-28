@@ -17,8 +17,10 @@ class AccessibilityAccessor{
 
     var foregroundApplication: NSRunningApplication?
     var frontWindowElement: AnyObject?
-    var windowElements: AnyObject?
     var mouseDownHandler : GlobalEventMonitor?
+
+    var windowElements: AnyObject?
+    var windowIndex: Int = 0
     
     init(){
         mouseDownHandler = GlobalEventMonitor(mask: .leftMouseDown, handler: { (mouseEvent: NSEvent?) in
@@ -27,21 +29,29 @@ class AccessibilityAccessor{
         mouseDownHandler?.start()
     }
     
-    func changeFrontWindow(){
-        if(windowElements != nil && windowElements!.lastObject != nil){
-            if(checkForError(AXUIElementPerformAction(windowElements!.lastObject as! AXUIElement,kAXRaiseAction as CFString))){
-                 print("Error at changeFrontWindow()")
+    func changeFrontWindowForeward(){
+        if(windowElements != nil){
+            if(windowIndex >= windowElements!.count - 1){
+                windowIndex = 0
+            }else{
+                windowIndex += 1
             }
-            setWindowElements()
+            if(checkForError(AXUIElementPerformAction(windowElements!.object(at: windowIndex) as! AXUIElement, kAXRaiseAction as CFString))){
+                    print("Error at changeFrontWindowForeward()")
+            }
         }
     }
     
-    func changeToLastFrontWindow(){
-        if(windowElements != nil && windowElements!.count > 1){
-            if(checkForError(AXUIElementPerformAction(windowElements!.object(at: 1) as! AXUIElement,kAXRaiseAction as CFString))){
-                print("Error at changeToLastFrontWindow()")
+    func changeFrontWindowBackward(){
+        if(windowElements != nil){
+            if(windowIndex <= 0){
+                windowIndex = windowElements!.count - 1
+            }else{
+                windowIndex -= 1
             }
-            setWindowElements()
+            if(checkForError(AXUIElementPerformAction(windowElements!.object(at: windowIndex) as! AXUIElement, kAXRaiseAction as CFString))){
+                print("Error at changeFrontWindowForeward()")
+            }
         }
     }
     
@@ -58,6 +68,7 @@ class AccessibilityAccessor{
         if(checkForError(AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowElements))){
             print("Error at setWindowElements()")
         }
+        windowIndex = 0
     }
     
     func setFrontWindowElement(){
