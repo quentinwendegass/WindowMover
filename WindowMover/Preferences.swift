@@ -28,7 +28,9 @@ class Preferences: NSWindowController {
         
         let key = HotKey(carbonKeyCode: UInt32(event.keyCode), carbonModifiers: event.modifierFlags.carbonFlags)
 
-        print(key.keyCombo)
+        print(event.charactersIgnoringModifiers)
+        print(event.keyCode)
+
     }
     
 }

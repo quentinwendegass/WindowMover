@@ -25,7 +25,7 @@ class MarkingOverlay: NSWindowController {
         self.window?.level = .floating
         self.window?.isOpaque = false
         self.window?.hasShadow = false
-        self.window?.backgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
+        self.window?.backgroundColor = NSColor(red: 0, green: 0, blue: 0.0, alpha: 0.0)
         self.window?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
@@ -49,10 +49,10 @@ class MarkingOverlay: NSWindowController {
         CATransaction.setDisableActions(true)
         rectFrameLayer.bounds = CGRect(x: 0, y: 0, width: (self.window?.frame.width)! / 2, height: (self.window?.frame.height)! / 2)
         rectFrameLayer.position = CGPoint(x: ((self.window?.frame.width)! / 2), y: ((self.window?.frame.height)! / 2))
-        rectFrameLayer.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
-        rectFrameLayer.cornerRadius = 25.0
-        rectFrameLayer.borderColor = CGColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.5)
-        rectFrameLayer.borderWidth = 5
+        rectFrameLayer.backgroundColor = CGColor(red: 0.8, green: 0.8, blue: 1, alpha: 0.3)
+        rectFrameLayer.cornerRadius = 0.0
+        rectFrameLayer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
+        rectFrameLayer.borderWidth = 0
         rectFrameLayer.shadowColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         rectFrameLayer.shadowRadius = 30
         rectFrameLayer.shadowOpacity = 0.5
@@ -64,7 +64,7 @@ class MarkingOverlay: NSWindowController {
         scaleAnimation.fillMode = kCAFillModeForwards
         scaleAnimation.isRemovedOnCompletion = false
         scaleAnimation.duration = 0.2
-
+        
         rectFrameLayer.add(scaleAnimation, forKey: "transform.scale")
         
         self.window?.contentView?.layer?.addSublayer(rectFrameLayer)

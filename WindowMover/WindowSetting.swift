@@ -23,6 +23,7 @@ class WindowSetting {
     static let titelBarHeight = WindowSetting.fullFrame.height - WindowSetting.usableFrame.height - (WindowSetting.usableFrame.origin.y - WindowSetting.fullFrame.origin.y)
 
     
+    var name: String
     var orientation: Orientation
     var rect: CGRect
     var hotkey: HotKey? {
@@ -36,31 +37,55 @@ class WindowSetting {
         }
     }
     
-    init(width: CGFloat, height: CGFloat, orientation: Orientation) {
+    var carbonKeyCode, carbonModifierCode: UInt32?
+    var carbonKeyChar: String?
+    
+    init(width: CGFloat, height: CGFloat, orientation: Orientation, name: String) {
         self.orientation = orientation
+        self.name = name
         switch orientation {
         case .bottomLeft:
-            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x, y: WindowSetting.titelBarHeight + WindowSetting.usableFrame.height - height, width: width, height: height)
+            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x, y: WindowSetting.titelBarHeight + WindowSetting.usableFrame.height - height - 1, width: width, height: height)
         case .topLeft:
             self.rect = CGRect(x: WindowSetting.usableFrame.origin.x, y: WindowSetting.titelBarHeight, width: width, height: height)
         case .bottomRight:
-            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x + WindowSetting.usableFrame.width - width, y: WindowSetting.titelBarHeight + WindowSetting.usableFrame.height - height,  width: width, height: height)
+            self.rect = CGRect(x: WindowSetting.usableFrame.origin.x + WindowSetting.usableFrame.width - width, y: WindowSetting.titelBarHeight + WindowSetting.usableFrame.height - height - 1,  width: width, height: height)
         case .topRight:
             self.rect = CGRect(x:  WindowSetting.usableFrame.origin.x + WindowSetting.usableFrame.width - width, y: WindowSetting.titelBarHeight, width: width, height: height)
         }
+        
+        updateHotkey()
     }
     
-    func setHotKey(hotkey: HotKey){
-        self.hotkey = hotkey
+    func updateHotkey() {
+        self.hotkey = HotKey(keyCombo: KeyCombo(carbonKeyCode: UInt32(UserDefaults.standard.integer(forKey: self.name + "Key")), carbonModifiers: UInt32(UserDefaults.standard.integer(forKey: self.name + "Modifier"))))
+        self.carbonKeyCode = hotkey?.keyCombo.carbonKeyCode;
+        self.carbonModifierCode = hotkey?.keyCombo.carbonModifiers;
+        self.carbonKeyChar = UserDefaults.standard.string(forKey: self.name + "KeyChar")
     }
     
     func attributesToFrontWindow(){
-        AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x, y: self.rect.origin.y)
-        if(!AccessibilityAccessor.shared.setFrontWindowSize(width: self.rect.width, height: self.rect.height)){
-            if(orientation == .bottomRight || orientation == .topRight){
-                let newSize = AccessibilityAccessor.shared.getFrontWindowSize()
-                AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x - (newSize.width - self.rect.width), y: self.rect.origin.y)
-                
+        let secFrame = AccessibilityAccessor.shared.getSecondApplicationFrame()
+        if(secFrame != nil && AccessibilityAccessor.shared.isSecondApplicationOrientated(orientation: orientation) && false){
+            if(orientation == .topLeft || orientation == .bottomLeft){
+                AccessibilityAccessor.shared.setFrontWindowPosition(x: 0, y: self.rect.origin.y)
+                print(secFrame?.origin.x)
+                AccessibilityAccessor.shared.setFrontWindowSize(width: secFrame!.origin.x, height: self.rect.height)
+                print(AccessibilityAccessor.shared.getFrontWindowSize())
+                print(AccessibilityAccessor.shared.getFrontWindowSize())
+
+            }else{
+                AccessibilityAccessor.shared.setFrontWindowSize(width: WindowSetting.usableFrame.width - secFrame!.width, height: self.rect.height)
+                AccessibilityAccessor.shared.setFrontWindowPosition(x: secFrame!.width, y: self.rect.origin.y)
+            }
+        }
+        else{
+            AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x, y: self.rect.origin.y)
+            if(!AccessibilityAccessor.shared.setFrontWindowSize(width: self.rect.width, height: self.rect.height)){
+                if(orientation == .bottomRight || orientation == .topRight){
+                    let newSize = AccessibilityAccessor.shared.getFrontWindowSize()
+                    AccessibilityAccessor.shared.setFrontWindowPosition(x: self.rect.origin.x - (newSize.width - self.rect.width), y: self.rect.origin.y)
+                }
             }
         }
     }

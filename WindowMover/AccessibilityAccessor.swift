@@ -16,7 +16,9 @@ class AccessibilityAccessor{
     static let shared = AccessibilityAccessor()
 
     var foregroundApplication: NSRunningApplication?
+    var lastForegroundApplication: NSRunningApplication?
     var frontWindowElement: AnyObject?
+    var lastAppFrontWindowElement: AnyObject?
     var mouseDownHandler : GlobalEventMonitor?
 
     var windowElements: AnyObject?
@@ -57,10 +59,21 @@ class AccessibilityAccessor{
     
     func setForegroundApplication(){
         if(foregroundApplication != NSWorkspace.shared.frontmostApplication){
+            lastForegroundApplication = foregroundApplication
             foregroundApplication = NSWorkspace.shared.frontmostApplication
+            setLastFrontWindowElement()
         }
         setWindowElements()
         setFrontWindowElement()
+    }
+    
+    func setLastFrontWindowElement(){
+        if(lastForegroundApplication != nil){
+            let appElement: AXUIElement = AXUIElementCreateApplication((lastForegroundApplication?.processIdentifier)!)
+            if(checkForError(AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &lastAppFrontWindowElement))){
+                print("Error at setLastFrontWindowElement()")
+            }
+        }
     }
     
     func setWindowElements(){
@@ -149,6 +162,43 @@ class AccessibilityAccessor{
     func getPointerValue<T>(address p: UnsafeMutableRawPointer, as type: T.Type) -> T {
         let value = p.load(as: type)
         return value
+    }
+    
+    func isSecondApplicationOrientated(orientation: WindowSetting.Orientation) -> Bool {
+        if let rect = getSecondApplicationFrame(){
+            if(orientation == .bottomLeft || orientation == .topLeft){
+                if(WindowSetting.usableFrame.width - rect.origin.x == rect.width){
+                    return true
+                }
+            }else{
+                if(rect.origin.x == 0){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func getSecondApplicationFrame() -> CGRect?{
+        if let app = lastAppFrontWindowElement{
+            let sizeValue: AnyObject? = getAccessibilityAttribute(attribute: kAXSizeAttribute, from: app)
+            var sizePointer: CGSize?
+            
+            if(sizeValue != nil){
+                AXValueGetValue(sizeValue as! AXValue, AXValueType(rawValue: kAXValueCGSizeType)!, &sizePointer)
+            }
+            let size: CGSize = getPointerValue(address: &sizePointer, as: CGSize.self)
+            
+            let positionValue: AnyObject? = getAccessibilityAttribute(attribute: kAXPositionAttribute, from: app)
+            var positionPointer: CGPoint?
+            
+            if(positionValue != nil){
+                AXValueGetValue(positionValue as! AXValue, AXValueType(rawValue: kAXValueCGPointType)!, &positionPointer)
+            }
+            let point: CGPoint = getPointerValue(address: &positionPointer, as: CGPoint.self)
+            return CGRect(origin: point, size: size)
+        }
+        return nil
     }
     
     func checkForError(_ error: AXError) -> Bool{

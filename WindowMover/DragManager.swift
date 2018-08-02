@@ -65,7 +65,7 @@ class DragManager {
         
         mouseDraggedHandler = GlobalEventMonitor(mask: .leftMouseDragged, handler: { (mouseEvent: NSEvent?) in
             self.windowAnalyser.mouseDragged(firstDrag: !self.dragged)
-            
+
             if(self.leftSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.leftSetting!, area: self.leftArea)){}
             else if(self.rightSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.rightSetting!, area: self.rightArea)){}
             else if(self.bottomSetting != nil && self.layoutAreaMouseDragged(windowSetting: self.bottomSetting!, area: self.bottomArea)){}

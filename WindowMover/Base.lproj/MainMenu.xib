@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -28,6 +28,49 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="P4u-pV-WUy"/>
+                <menuItem title="Full" id="2P1-VF-VpQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="fullClicked:" target="CVv-tt-KlE" id="Zhp-fk-KW7"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Left Half" id="SJR-Lo-U0g">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="leftHalfClicked:" target="CVv-tt-KlE" id="Vbl-6T-gJN"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Right Half" id="FCE-aN-EGF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="rightHalfClicked:" target="CVv-tt-KlE" id="4aj-BA-YQq"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Left Quarter" id="CFZ-mh-6zL">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="leftQuarterClicked:" target="CVv-tt-KlE" id="nyt-aT-GlK"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Right Quarter" id="3G6-V6-C1h">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="rightQuarterClicked:" target="CVv-tt-KlE" id="U8J-Z9-fs3"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Left Gibbous" id="TYP-nY-4AM">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="leftGibbousClicked:" target="CVv-tt-KlE" id="JXd-HC-rvP"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Right Gibbous" id="OJN-sY-PbP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="rightGibbousClicked:" target="CVv-tt-KlE" id="2h9-8o-h6F"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="F35-sh-m1r"/>
                 <menuItem title="Quit" id="1cZ-bB-Rro">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -35,7 +78,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="98.5" y="84.5"/>
+            <point key="canvasLocation" x="43" y="87.5"/>
         </menu>
     </objects>
 </document>
